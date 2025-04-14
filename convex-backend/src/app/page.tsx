@@ -1,8 +1,70 @@
-import Image from "next/image";
+//to start the to do list, add useClient
+"use client";
+import React, {useState} from "react"; //import hooks
+
+//Typescript: identify the type, define the schema
+type ToDoItem = {
+  title: string;
+  description: string;
+  completed: boolean;
+  completedAt: "number", // Unix timestamp
+   // adding mood and body state, adding ? makes it optional for unfinished tasks
+   mood_state: "string?"; //wrap in a string is a str literal
+   body_state: "string?";
+
+}
 
 export default function Home() {
+  // in the body, define the state
+  const [todos, setTodos] = useState<ToDoItem[]>([
+    // establish test data from the schema
+    {
+      title: "Example Entry",
+      description: "This log is an example",
+      completed: false,
+      completedAt: 1,
+      mood_state: "Calm",
+      body_state: "Grounded"
+    }
+  ]);
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+   <div className="max-w-screen-md mx-auto p-4">
+    <h1 className="text-xl font-bold">Somatic Serenity</h1>
+    {/* set the ul container */}
+    <ul>
+      {/* Begin mapping */}
+      {todos.map(({title, description, completed, completedAt, mood_state, body_state}, index) => (
+      <li key={index}>
+        <input 
+        type="checkbox" 
+        checked={completed} 
+        onChange={e => setTodos(prev => {
+          // define a new variable and use the spread operator on the prev state
+          const newTodos = [...prev];
+
+          //Now: begin chaining the newTodos instead of prev
+          newTodos[index].completed = e.target.checked;
+          return newTodos;
+
+
+          // Initially: find the prev value's index and log it as completed and VT with checked box event, then return the prev value
+          // prev[index].completed = e.target.checked;
+          // return prev;
+        })} />
+        <span className="font-semibold">{title}</span>
+        {description}
+        {completedAt}
+        {mood_state}
+        {body_state}
+      </li>
+      ))}
+    </ul>
+   </div>
+  );
+}
+//Template
+/*
+ <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
@@ -99,5 +161,4 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  );
-}
+*/ 
