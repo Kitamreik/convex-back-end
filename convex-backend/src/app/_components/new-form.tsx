@@ -39,29 +39,32 @@ export function NewForm({onCreate}: FormProps) {
 
     return (
     <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Title: </label>
-        <input type="text" name="title" id="title" value={title} onChange={e => setTitle(e.target.value)} />
-        <br />
-        <hr />
-        <br />
-        <label htmlFor="description">Description: </label>
-        <input type="text" name="description" id="description" value={description} onChange={e => setDesc(e.target.value)} />
-        <br />
-        <hr />
-        <br />
-        <label htmlFor="mood-state">Mood: </label>
-        <input type="text" name="mood-state" id="mood-state" value={mood_state} onChange={e => setMood(e.target.value)} />
-        <br />
-        <hr />
-        <br />
-        <label htmlFor="body-state">Body: </label>
-        <input type="text" name="body-state" id="body-state" value={body_state} onChange={e => setBody(e.target.value)} />
-        <br />
-        <hr />
-        <br />
-        <span>
-        <button type="submit">Create Entry</button>
-        </span>
+        {/* wrap form controls in a div, make a flex column with a gap of 2 */}
+        <div className="flex flex-col gap-2">
+            {/* small text labels */}
+            <label className="text-sm font-semibold" htmlFor="title">Title: </label>
+            <input className="p-1 border rounded" type="text" name="title" id="title" value={title} onChange={e => setTitle(e.target.value)} />
+            <FormSplitter/>
+            <label className="text-sm font-semibold" htmlFor="description">Description: </label>
+            <input className="p-1 border rounded" type="text" name="description" id="description" value={description} onChange={e => setDesc(e.target.value)} />
+            <FormSplitter/>
+            <label className="text-sm font-semibold" htmlFor="mood-state">Mood: </label>
+            <input className="p-1 border rounded"  type="text" name="mood-state" id="mood-state" value={mood_state} onChange={e => setMood(e.target.value)} />
+            <FormSplitter/>
+            <label className="text-sm font-semibold" htmlFor="body-state">Body: </label>
+            <input className="p-1 border rounded" type="text" name="body-state" id="body-state" value={body_state} onChange={e => setBody(e.target.value)} />
+            <button className="bg-blue-500 p-1 rounded text-white" type="submit">Create Entry</button>
+        </div>
     </form>
+    )
+}
+
+function FormSplitter() {
+    return (
+       <span>
+            <br />
+            <hr />
+            <br />
+       </span> 
     )
 }

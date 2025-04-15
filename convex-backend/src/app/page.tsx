@@ -33,11 +33,12 @@ export default function Home() {
   //Move setTodos below
 
   return (
-   <div className="max-w-screen-md mx-auto p-4">
+    // take up the max screen size horizontally, where it flexes, and space between the elements
+   <div className="max-w-screen-md mx-auto p-4 space-y-4">
     <h1 className="text-xl font-bold">Somatic Serenity</h1>
     <br />
-    {/* set the ul container */}
-    <ul>
+    {/* set the ul container and adding spacing between elements */}
+    <ul className="space-y-2">
       {/* Begin mapping */}
       {todos.map(({title, description, completed, mood_state, body_state}, index) => (
         <LineItem 
@@ -63,6 +64,13 @@ export default function Home() {
             // prev[index].completed = e.target.checked;
             // return prev;
           })
+        }}
+        onRemove={() => {
+          setTodos(prev => {
+             // look at the prev arr and filter based on the index of the initial array and detect the correct entry
+             const newTodos = [...prev].filter((_, i) => i !== index); //in order to return true, change from strictly equal to not equal, to target all values including the first one
+             return newTodos;
+          })
         }}/>
       ))}
     </ul>
@@ -81,7 +89,7 @@ export default function Home() {
   );
 }
 
-function LineItem({title, description, completed, mood_state, body_state, onCompleteChanged}: 
+function LineItem({title, description, completed, mood_state, body_state, onCompleteChanged, onRemove}: 
   {
     title: string;
     description: string;
@@ -89,26 +97,29 @@ function LineItem({title, description, completed, mood_state, body_state, onComp
     mood_state: string | undefined;
     body_state: string | undefined;
     onCompleteChanged: (newValue: boolean) => void;
+    //make another callback function to delete items
+    onRemove: () => void;
   }) {
   return (
     //remove key
-    //18 min
-    <li className = "flex gap-2">
+    <li className = "w-full flex item-center gap-2 border rounded p-2">
         <input 
         type="checkbox" 
         checked={completed} 
         // refactor callback
         onChange={e => onCompleteChanged(e.target.checked)} />
-        <span className="font-semibold">
-        {title}
-        <br />
-        {description}
-        <br />
-        {/* {completedAt} */}
-        {mood_state}
-        <br />
-        {body_state}
-        </span>
+        <div>
+          <p className="font-semibold">
+            {title}</p>
+            {/* 300 - light, 600- darker */}
+          <p className="text-sm text-gray-600">{description}</p>
+          <p className="text-sm text-gray-600">{mood_state}</p>
+          <p className="text-sm text-gray-600">{body_state}</p>
+        </div>
+        {/* delete button */}
+        <div className="ml-auto">
+          <button type="button" className="text-red-500" onClick={() => onRemove()}>Remove</button>
+        </div>
       </li>
   )
 }
