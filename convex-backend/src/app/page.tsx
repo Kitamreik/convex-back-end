@@ -92,8 +92,8 @@ function LineItem({title, description, completed, mood_state, body_state, onComp
     title: string;
     description: string;
     completed: boolean;
-    mood_state: string | undefined;
-    body_state: string | undefined;
+    mood_state: string;
+    body_state: string;
     onCompleteChanged: (newValue: boolean) => void;
     //make another callback function to delete items
     onRemove: () => void;
