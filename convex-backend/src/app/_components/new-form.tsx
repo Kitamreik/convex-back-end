@@ -5,7 +5,6 @@ type FormProps = {
         title: string, 
         description: string
         // body/mood?
-    
     ) => void;
 }
 
