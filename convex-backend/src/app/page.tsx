@@ -12,7 +12,6 @@ type ToDoItem = {
    // adding mood and body state, adding ? makes it optional for unfinished tasks
   mood_state: string | undefined; 
   body_state: string | undefined;
-
 }
 
 export default function Home() {
@@ -58,7 +57,6 @@ export default function Home() {
             //Now: begin chaining the newTodos instead of prev
             newTodos[index].completed = newValue; //instead of e.target.checked, set to newValue
             return newTodos;
-  
   
             // Initially: find the prev value's index and log it as completed and VT with checked box event, then return the prev value
             // prev[index].completed = e.target.checked;
